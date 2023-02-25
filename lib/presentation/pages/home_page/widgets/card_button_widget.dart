@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/presentation/route_management/route_name.dart';
 import 'package:flutter_application_1/presentation/utilities/assets_path_constant.dart';
 import 'package:flutter_application_1/presentation/utilities/color_constant.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CardButtonWidget extends StatelessWidget {
@@ -26,7 +27,7 @@ class CardButtonWidget extends StatelessWidget {
           isAssetImage: false,
           childAlign: CrossAxisAlignment.end,
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: 20.h),
         CardButtonItemWidget(
           name: 'Training',
           subject: 'Tap to training AI model',
@@ -69,8 +70,6 @@ class CardButtonItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double deviceWidth = MediaQuery.of(context).size.width;
-
     return InkWell(
       onTap: onTap,
       child: Stack(
@@ -81,8 +80,8 @@ class CardButtonItemWidget extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: ColorConstant.kBlackColor.withOpacity(0.5),
-                  offset: const Offset(3, 5),
-                  blurRadius: 10,
+                  offset: Offset(3.w, 5.w),
+                  blurRadius: 10.w,
                 ),
               ],
             ),
@@ -92,32 +91,27 @@ class CardButtonItemWidget extends StatelessWidget {
                   ? Image.asset(
                       imagePath,
                       fit: BoxFit.cover,
-                      width: deviceWidth - 60,
-                      height: deviceWidth - 60,
+                      width: 280.h,
+                      height: 280.h,
                     )
                   : Image.network(
                       imagePath,
                       fit: BoxFit.cover,
-                      width: deviceWidth - 60,
-                      height: deviceWidth - 60,
+                      width: 280.h,
+                      height: 280.h,
                     ),
             ),
           ),
           Container(
-            height: deviceWidth - 60,
-            width: deviceWidth - 60,
-            padding: const EdgeInsets.only(
-              left: 16,
-              top: 16,
-              bottom: 16,
-              right: 16,
-            ),
+            height: 280.h,
+            width: 280.h,
+            padding: EdgeInsets.all(20.w),
             child: Column(
               crossAxisAlignment: childAlign,
               children: [
                 SvgPicture.asset(
                   svgPath,
-                  width: 50,
+                  width: 50.w,
                   color: iconColor,
                 ),
                 const Spacer(),
@@ -127,9 +121,9 @@ class CardButtonItemWidget extends StatelessWidget {
                     name,
                     style: TextStyle(
                       color: textColor,
-                      fontSize: 32,
+                      fontSize: 30.sp,
                       fontWeight: FontWeight.w600,
-                      letterSpacing: 5,
+                      letterSpacing: 4.w,
                     ),
                   ),
                 ),
@@ -139,8 +133,8 @@ class CardButtonItemWidget extends StatelessWidget {
                     subject,
                     style: TextStyle(
                       color: subjectColor,
-                      fontSize: 15,
-                      letterSpacing: 4,
+                      fontSize: 14.sp,
+                      letterSpacing: 3.w,
                     ),
                   ),
                 ),

@@ -5,6 +5,7 @@ import 'package:flutter_application_1/business_logics/bloc/home/home_page_event.
 import 'package:flutter_application_1/business_logics/bloc/home/home_page_state.dart';
 import 'package:flutter_application_1/presentation/utilities/color_constant.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../route_management/route_name.dart';
 
@@ -34,12 +35,13 @@ class UserInfoWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CircleAvatar(
-                  radius: 24,
+                  radius: 24.w,
                   backgroundColor: ColorConstant.kOrangeColor,
                   child: CircleAvatar(
-                    radius: 22,
+                    radius: 22.w,
                     backgroundColor: ColorConstant.kWhiteColor,
                     child: CircleAvatar(
+                      radius: 19.5.w,
                       backgroundImage: user != null
                           ? NetworkImage(
                               user.photoURL ?? '',
@@ -48,25 +50,25 @@ class UserInfoWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: 16.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     !state.isLoadData
                         ? Text(
                             'Good Afternoon, ${state.userModel?.name}!',
-                            style: const TextStyle(
-                              fontSize: 18,
+                            style: TextStyle(
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           )
-                        : const SizedBox(
-                            height: 18,
+                        : SizedBox(
+                            height: 18.h,
                           ),
-                    const Text(
+                    Text(
                       'Tap here to edit personal data',
                       style: TextStyle(
-                        fontSize: 9,
+                        fontSize: 9.sp,
                         fontWeight: FontWeight.w500,
                       ),
                     ),

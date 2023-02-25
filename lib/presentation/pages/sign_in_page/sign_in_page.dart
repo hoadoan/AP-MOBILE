@@ -4,6 +4,7 @@ import 'package:flutter_application_1/business_logics/bloc/sign_in/sign_in_page_
 import 'package:flutter_application_1/presentation/custom_widgets/gradient_widget.dart';
 import 'package:flutter_application_1/presentation/pages/sign_in_page/widgets/sign_in_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart';
 
@@ -21,8 +22,8 @@ class SignInPage extends StatelessWidget {
       body: Stack(
         children: [
           Positioned(
-            top: 50,
-            left: 150,
+            top: 50.h,
+            left: 150.w,
             child: Image.asset(
               IMAGE_PATH + SPLINE_PNG,
             ),
@@ -47,14 +48,14 @@ class SignInPage extends StatelessWidget {
                   children: [
                     Image.asset(
                       IMAGE_PATH + AI_LOGO_PNG,
-                      width: 70,
+                      width: 70.w,
                       fit: BoxFit.cover,
                     ),
                     GradientWidget(
                       child: Text(
                         'F-detect',
                         style: GoogleFonts.righteous(
-                          fontSize: 35,
+                          fontSize: 35.sp,
                           color: const Color.fromARGB(255, 2, 29, 50),
                           fontWeight: FontWeight.w500,
                         ),
@@ -63,12 +64,12 @@ class SignInPage extends StatelessWidget {
                     Text(
                       'AI: Where Machines are Smarter',
                       style: GoogleFonts.poppins(
-                        fontSize: 13,
+                        fontSize: 13.sp,
                         color: const Color.fromARGB(255, 2, 29, 50),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                     SignInButtonWidget(
                       onTap: () {
@@ -87,7 +88,7 @@ class SignInPage extends StatelessWidget {
                   child: Text(
                     'version 0.0.1',
                     style: GoogleFonts.poppins(
-                      fontSize: 13,
+                      fontSize: 13.sp,
                       color: const Color.fromARGB(255, 2, 29, 50),
                     ),
                   ),

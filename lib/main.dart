@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/presentation/route_management/route_generator.dart';
 import 'package:flutter_application_1/presentation/utilities/color_constant.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main(List<String> args) async {
@@ -30,22 +31,30 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
       builder: (context, child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(
-            textScaleFactor: 1.0,
+        return MaterialApp(
+          title: 'F-detect',
+          debugShowCheckedModeBanner: false,
+          // builder: (context, child) {
+          //   return MediaQuery(
+          //     data: MediaQuery.of(context).copyWith(
+          //       textScaleFactor: 1.0,
+          //     ),
+          //     child: child!,
+          //   );
+          // },
+          onGenerateRoute: RouteGenerator.generateRoute,
+          theme: ThemeData(
+            primaryColor: ColorConstant.kPrimaryColor,
+            textTheme: GoogleFonts.poppinsTextTheme(),
+            useMaterial3: true,
           ),
-          child: child!,
         );
       },
-      onGenerateRoute: RouteGenerator.generateRoute,
-      theme: ThemeData(
-        primaryColor: ColorConstant.kPrimaryColor,
-        textTheme: GoogleFonts.poppinsTextTheme(),
-        useMaterial3: true,
-      ),
     );
   }
 }

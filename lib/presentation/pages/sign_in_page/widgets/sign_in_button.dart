@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,11 +15,11 @@ class SignInButtonWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          vertical: 4,
+        padding: EdgeInsets.symmetric(
+          vertical: 4.h,
         ),
-        margin: const EdgeInsets.symmetric(
-          horizontal: 32,
+        margin: EdgeInsets.symmetric(
+          horizontal: 32.w,
         ),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -26,11 +27,11 @@ class SignInButtonWidget extends StatelessWidget {
           border: Border.all(
             color: const Color.fromARGB(255, 209, 230, 247),
           ),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
               color: Colors.white,
-              blurRadius: 8,
-              offset: Offset(2, 2),
+              blurRadius: 8.w,
+              offset: Offset(2.w, 2.w),
             ),
           ],
         ),
@@ -39,15 +40,15 @@ class SignInButtonWidget extends StatelessWidget {
           children: [
             SvgPicture.asset(
               ICON_PATH + GOOGLE_LOGO_SVG,
-              width: 30,
+              width: 30.w,
             ),
-            const SizedBox(
-              width: 16,
+            SizedBox(
+              width: 16.w,
             ),
             Text(
               'Sign in with Google',
               style: GoogleFonts.poppins(
-                fontSize: 15,
+                fontSize: 14.sp,
                 color: const Color.fromARGB(255, 2, 29, 50),
               ),
             ),

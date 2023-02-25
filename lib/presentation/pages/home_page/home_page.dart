@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/presentation/pages/home_page/widgets/card_button_widget.dart';
 import 'package:flutter_application_1/presentation/pages/home_page/widgets/user_info_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rive/rive.dart';
 
 import '../../custom_widgets/blur_widget.dart';
@@ -18,8 +19,8 @@ class HomePage extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              top: 200,
-              left: 120,
+              top: 200.h,
+              left: 120.w,
               child: Image.asset(
                 IMAGE_PATH + SPLINE_PNG,
               ),
@@ -29,7 +30,7 @@ class HomePage extends StatelessWidget {
               bottom: 130,
               child: Image.asset(
                 IMAGE_PATH + SPLINE_PNG,
-                width: 900,
+                width: 840.w,
               ),
             ),
             const RiveAnimation.asset(
@@ -41,10 +42,10 @@ class HomePage extends StatelessWidget {
               height: deviceHeight,
               child: SingleChildScrollView(
                 child: Column(
-                  children: const [
-                    UserInfoWidget(),
-                    SizedBox(height: 30),
-                    CardButtonWidget(),
+                  children: [
+                    const UserInfoWidget(),
+                    SizedBox(height: 30.h),
+                    const CardButtonWidget(),
                   ],
                 ),
               ),
