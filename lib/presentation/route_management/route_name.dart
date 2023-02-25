@@ -14,4 +14,6 @@ class RouteNames {
   static const String kIdentifyPageRoute = "/Identify_Page_Route";
   static const String kRegisterPageRoute = "/Register_Page_Route";
   static const String kTrainingPageRoute = "/Training_Page_Route";
+  static const String kCustomPhotoViewPageRoute =
+      "/Custom_Photo_View_Page_Route";
 }

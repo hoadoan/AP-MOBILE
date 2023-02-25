@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/presentation/route_management/route_name.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 
 import 'package:flutter_application_1/presentation/utilities/color_constant.dart';
@@ -95,9 +96,15 @@ class IdentifyResultPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 20),
-                      child: Stack(
-                        children: [
-                          Container(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                              RouteNames.kCustomPhotoViewPageRoute,
+                              arguments: bytesResult);
+                        },
+                        child: Hero(
+                          tag: 'photo_view',
+                          child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: [
@@ -110,31 +117,16 @@ class IdentifyResultPage extends StatelessWidget {
                               ],
                             ),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(10),
                               child: Image.memory(
                                 bytesResult,
                                 fit: BoxFit.cover,
-                                // height: 400,
                                 width: MediaQuery.of(context).size.width,
                                 alignment: Alignment.topCenter,
                               ),
                             ),
                           ),
-                          // Container(
-                          //   height: 450,
-                          //   alignment: Alignment.bottomCenter,
-                          //   child: CircleAvatar(
-                          //     radius: 44,
-                          //     backgroundColor: ColorConstant.kWhiteColor,
-                          //     child: CircleAvatar(
-                          //       radius: 40,
-                          //       backgroundImage: FileImage(
-                          //         File(imagePath),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // )
-                        ],
+                        ),
                       ),
                     ),
                   ),

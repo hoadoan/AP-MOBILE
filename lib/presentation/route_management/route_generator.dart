@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/business_logics/bloc/home/home_page_bloc.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_application_1/business_logics/bloc/sign_in/sign_in_page_
 import 'package:flutter_application_1/business_logics/bloc/training/training_page_bloc.dart';
 import 'package:flutter_application_1/business_logics/bloc/user_profile/user_profile_page_bloc.dart';
 import 'package:flutter_application_1/business_logics/bloc/user_profile/user_profile_page_state.dart';
+import 'package:flutter_application_1/presentation/pages/custom_photo_view_page/custom_photo_view_page.dart';
 import 'package:flutter_application_1/presentation/pages/home_page/home_page.dart';
 import 'package:flutter_application_1/presentation/pages/identify_page/identify_page.dart';
 import 'package:flutter_application_1/presentation/pages/register_page/register_page.dart';
@@ -61,6 +64,11 @@ class RouteGenerator {
             ),
             child: UserProfilePage(onTapBack: onTapBack),
           ),
+        );
+      case RouteNames.kCustomPhotoViewPageRoute:
+        Uint8List byteData = routeSettings.arguments as Uint8List;
+        return MaterialPageRoute(
+          builder: (context) => CustomPhotoViewPage(byteData: byteData),
         );
       case RouteNames.kRegisterPageRoute:
         User firebaseUser = routeSettings.arguments as User;
