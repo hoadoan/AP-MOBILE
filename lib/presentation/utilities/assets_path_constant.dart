@@ -10,7 +10,8 @@ const AI_TRAINING_JPG = 'ai_training.jpg';
 const GALLERY_PNG = 'gallery.png';
 const CAT_ICON_PNG = 'cat_icon.png';
 const DOG_PNG = 'dog.png';
-const No_AVATAR_PNG = 'no_avatar.png';
+const NO_AVATAR_PNG = 'no_avatar.png';
+const SCAN_PNG = 'scan.png';
 
 //*icons
 const ICON_PATH = 'assets/icons/';

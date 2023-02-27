@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_application_1/presentation/utilities/color_constant.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:rive/rive.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -25,6 +27,7 @@ class IdentifyResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String fileName = '';
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -160,10 +163,17 @@ class IdentifyResultPage extends StatelessWidget {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
+                          if (fileName.isEmpty) {
+                            final Directory tempDir =
+                                await getTemporaryDirectory();
+                            fileName = '${tempDir.path}image.png';
+                            File file = await File(fileName).create();
+                            await file.writeAsBytes(bytesResult);
+                          }
                           Share.shareXFiles(
                             [
-                              XFile(imagePath),
+                              XFile(fileName),
                             ],
                           );
                         },
@@ -178,7 +188,14 @@ class IdentifyResultPage extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () async {
-                          await ImageGallerySaver.saveFile(imagePath);
+                          if (fileName.isEmpty) {
+                            final Directory tempDir =
+                                await getTemporaryDirectory();
+                            fileName = '${tempDir.path}image.png';
+                            File file = await File(fileName).create();
+                            await file.writeAsBytes(bytesResult);
+                          }
+                          await ImageGallerySaver.saveFile(fileName);
                           Fluttertoast.showToast(
                               msg: 'Save image to gallery successfully!',
                               toastLength: Toast.LENGTH_LONG,

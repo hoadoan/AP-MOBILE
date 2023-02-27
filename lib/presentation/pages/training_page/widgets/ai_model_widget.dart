@@ -78,7 +78,7 @@ class AIModelWidget extends StatelessWidget {
                                       modelImagePath += CAT_ICON_PNG;
                                       break;
                                     default:
-                                      modelImagePath += No_AVATAR_PNG;
+                                      modelImagePath += NO_AVATAR_PNG;
                                   }
                                   return state.trainingModelMap.keys
                                           .contains(labelList[index])

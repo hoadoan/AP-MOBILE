@@ -15,16 +15,14 @@ class CardButtonWidget extends StatelessWidget {
         CardButtonItemWidget(
           name: 'Identify',
           subject: 'Tap to recognize objects',
-          imagePath:
-              'https://storage.ettip.com/Upload/Images/Vocabulary/Official/8514.png',
-          svgPath: ICON_PATH + CAMERA_SVG,
+          imagePath: IMAGE_PATH + SCAN_PNG,
+          svgPath: ICON_PATH + SCAN_PNG,
           textColor: const Color.fromARGB(255, 246, 122, 78),
           subjectColor: const Color.fromARGB(255, 246, 122, 78),
           iconColor: const Color.fromARGB(255, 246, 122, 78),
           onTap: () {
             Navigator.pushNamed(context, RouteNames.kIdentifyPageRoute);
           },
-          isAssetImage: false,
           childAlign: CrossAxisAlignment.end,
         ),
         SizedBox(height: 20.h),

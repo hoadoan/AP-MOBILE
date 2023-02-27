@@ -59,7 +59,22 @@ class IdentifyPageBLoc extends Bloc<IdentifyPageEvent, IdentifyPageState> {
   _onTapTakePictureButtonEvent(
       TapTakePictureButtonEvent event, Emitter<IdentifyPageState> emit) async {
     XFile xFile = await cameraController.takePicture();
-    _cropImage(xFile: xFile);
+    CroppedFile? croppedFile = await _cropImage(xFile: xFile);
+    if (croppedFile != null) {
+      emit(state.copyWith(isLoading: true));
+      Uint8List? bytesResult =
+          await _identifyService.identifyObject(evidencePath: croppedFile.path);
+      emit(state.copyWith(isLoading: false));
+      Navigator.push(
+        context!,
+        MaterialPageRoute(
+          builder: (context) => IdentifyResultPage(
+            imagePath: croppedFile.path,
+            bytesResult: bytesResult!,
+          ),
+        ),
+      );
+    }
   }
 
   _cameraControllerInit() async {
