@@ -16,7 +16,6 @@ class CardButtonWidget extends StatelessWidget {
           name: 'Identify',
           subject: 'Tap to recognize objects',
           imagePath: IMAGE_PATH + SCAN_PNG,
-          svgPath: ICON_PATH + SCAN_PNG,
           textColor: const Color.fromARGB(255, 246, 122, 78),
           subjectColor: const Color.fromARGB(255, 246, 122, 78),
           iconColor: const Color.fromARGB(255, 246, 122, 78),
@@ -49,7 +48,7 @@ class CardButtonItemWidget extends StatelessWidget {
     this.subjectColor = ColorConstant.kWhiteColor,
     this.iconColor = ColorConstant.kWhiteColor,
     required this.imagePath,
-    required this.svgPath,
+    this.svgPath,
     required this.onTap,
     this.childAlign = CrossAxisAlignment.start,
     this.isAssetImage = true,
@@ -61,7 +60,7 @@ class CardButtonItemWidget extends StatelessWidget {
   final Color subjectColor;
   final Color iconColor;
   final String imagePath;
-  final String svgPath;
+  final String? svgPath;
   final Function() onTap;
   final bool isAssetImage;
   final CrossAxisAlignment childAlign;
@@ -107,11 +106,12 @@ class CardButtonItemWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: childAlign,
               children: [
-                SvgPicture.asset(
-                  svgPath,
-                  width: 50.w,
-                  color: iconColor,
-                ),
+                if (svgPath != null)
+                  SvgPicture.asset(
+                    svgPath!,
+                    width: 50.w,
+                    color: iconColor,
+                  ),
                 const Spacer(),
                 FittedBox(
                   fit: BoxFit.scaleDown,

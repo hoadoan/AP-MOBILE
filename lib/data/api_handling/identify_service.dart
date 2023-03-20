@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/data/api_handling/api_path_constant.dart';
+import 'package:flutter_application_1/data/models/detect_result_model/detect_result_model.dart';
 
 class IdentifyService {
   IdentifyService._internalConstructor();
@@ -14,7 +14,8 @@ class IdentifyService {
     return _instance;
   }
 
-  Future<Uint8List?> identifyObject({required String evidencePath}) async {
+  Future<DetectResultModel?> identifyObject(
+      {required String evidencePath}) async {
     FormData formData = FormData.fromMap({
       'file': await MultipartFile.fromFile(evidencePath),
     });
@@ -27,7 +28,7 @@ class IdentifyService {
           HttpHeaders.contentTypeHeader: 'multipart/form-data',
           // HttpHeaders.authorizationHeader: 'Bearer ' + jwt,
         },
-        responseType: ResponseType.bytes,
+        responseType: ResponseType.json,
       ),
     );
 
@@ -35,7 +36,7 @@ class IdentifyService {
       case 200:
       case 201:
       case 202:
-        return response.data;
+        return DetectResultModel.fromJson(response.data);
       default:
         return null;
     }
