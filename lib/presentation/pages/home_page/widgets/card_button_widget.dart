@@ -31,7 +31,7 @@ class CardButtonWidget extends StatelessWidget {
           imagePath: IMAGE_PATH + AI_TRAINING_JPG,
           svgPath: ICON_PATH + ARTIFICIAL_SVG,
           onTap: () {
-            Navigator.pushNamed(context, RouteNames.kTrainingPageRoute);
+            Navigator.pushNamed(context, RouteNames.kRoomListPageRoute);
           },
         ),
       ],

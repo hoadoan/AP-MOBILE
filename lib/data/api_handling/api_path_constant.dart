@@ -10,6 +10,6 @@ class APIPathConstant {
     return _instance;
   }
 
-  // static const API_SERVER_PATH = '206.189.80.160:5000';
+  // static const API_SERVER_PATH = '0707-34-87-2-184.ngrok.io';
   static const API_SERVER_PATH = '10.0.2.2:5000';
 }

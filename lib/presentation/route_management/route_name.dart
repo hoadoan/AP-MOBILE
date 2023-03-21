@@ -16,4 +16,5 @@ class RouteNames {
   static const String kTrainingPageRoute = "/Training_Page_Route";
   static const String kCustomPhotoViewPageRoute =
       "/Custom_Photo_View_Page_Route";
+  static const String kRoomListPageRoute = "/Room_List_Page_Route";
 }

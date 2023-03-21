@@ -6,7 +6,7 @@ import 'package:flutter_application_1/presentation/custom_widgets/gradient_widge
 import 'package:flutter_application_1/presentation/pages/training_page/widgets/training_model_item_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:rive/rive.dart';
+import 'package:rive/rive.dart' as rive;
 
 import '../../../business_logics/bloc/training/training_page_event.dart';
 import '../../custom_widgets/blur_widget.dart';
@@ -42,7 +42,7 @@ class TrainingPage extends StatelessWidget {
                 width: 900,
               ),
             ),
-            const RiveAnimation.asset(
+            const rive.RiveAnimation.asset(
               RIVE_PATH + SHAPES_RIV,
               fit: BoxFit.cover,
             ),
@@ -220,7 +220,7 @@ class TrainingPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Text(
-                              'Start Training A.I Label',
+                              'Send Training Dataset To Mentor',
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
@@ -233,6 +233,62 @@ class TrainingPage extends StatelessWidget {
                             ),
                             Icon(
                               PhosphorIcons.traffic_sign,
+                              color: ColorConstant.kWhiteColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Stack(
+                  children: [
+                    Center(
+                      child: GradientWidget(
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 210, 69, 3),
+                            Color.fromARGB(255, 255, 233, 32),
+                          ],
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            trainingPageBloc.add(StartTrainingEvent());
+                          },
+                          child: Container(
+                            width: deviceWidth * 0.9,
+                            height: 40,
+                            margin: const EdgeInsets.symmetric(vertical: 0),
+                            decoration: BoxDecoration(
+                                color: ColorConstant.kWhiteColor,
+                                borderRadius: BorderRadius.circular(10)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      height: 40,
+                      color: Colors.black.withOpacity(0),
+                      child: InkWell(
+                        onTap: () {},
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              'Detect Object Using This Room A.I',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: ColorConstant.kWhiteColor,
+                                letterSpacing: 1.2,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Icon(
+                              PhosphorIcons.train,
                               color: ColorConstant.kWhiteColor,
                             ),
                           ],

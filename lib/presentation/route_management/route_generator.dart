@@ -14,6 +14,7 @@ import 'package:flutter_application_1/presentation/pages/custom_photo_view_page/
 import 'package:flutter_application_1/presentation/pages/home_page/home_page.dart';
 import 'package:flutter_application_1/presentation/pages/identify_page/identify_page.dart';
 import 'package:flutter_application_1/presentation/pages/register_page/register_page.dart';
+import 'package:flutter_application_1/presentation/pages/room_list_view_page/room_list_view_page.dart';
 import 'package:flutter_application_1/presentation/pages/user_profile_page/user_profile_page.dart';
 import 'package:flutter_application_1/presentation/route_management/route_name.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,6 +80,10 @@ class RouteGenerator {
             ),
             child: const RegisterPage(),
           ),
+        );
+      case RouteNames.kRoomListPageRoute:
+        return MaterialPageRoute(
+          builder: (context) => const RoomListView(),
         );
       case RouteNames.kTrainingPageRoute:
         return MaterialPageRoute(
