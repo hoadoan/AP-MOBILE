@@ -9,7 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../custom_widgets/blur_widget.dart';
 
 class IdentifyPage extends StatelessWidget {
-  const IdentifyPage({Key? key}) : super(key: key);
+  final String? apiPath;
+  const IdentifyPage({Key? key, this.apiPath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class IdentifyPage extends StatelessWidget {
                     : const SizedBox.shrink();
               },
             ),
-            const ForegroundWidget(),
+            ForegroundWidget(apiPath: apiPath),
             BlocBuilder<IdentifyPageBLoc, IdentifyPageState>(
               builder: (context, state) {
                 return Visibility(

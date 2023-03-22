@@ -138,7 +138,7 @@ class TrainingPageBloc extends Bloc<TrainingPageEvent, TrainingPageState> {
       StartTrainingEvent event, Emitter<TrainingPageState> emit) async {
     emit(state.copyWith(isWaitingTraining: true));
     await _trainingService.training(
-        trainingModelMap: state.trainingModelMap, userId: '1');
+        trainingModelMap: state.trainingModelMap, id: event.id);
     emit(state.copyWith(isWaitingTraining: false));
 
     Fluttertoast.showToast(

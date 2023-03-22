@@ -219,7 +219,7 @@ class IdentifyResultPage extends StatelessWidget {
                                                     width: 10,
                                                   ),
                                                   Text(
-                                                    '${e.label}: ${e.confidence}%',
+                                                    '${e.label}: ${(double.tryParse(e.confidence)! * 100).round()}%',
                                                     style: const TextStyle(
                                                       color: ColorConstant
                                                           .kWhiteColor,
@@ -238,16 +238,17 @@ class IdentifyResultPage extends StatelessWidget {
                                 ),
                               )
                               .toList(),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 30),
-                            child: Text(
-                              'Không có vật thể nào được tìm thấy!',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 23,
+                          if (detectResultModel.detections.isEmpty)
+                            const Padding(
+                              padding: EdgeInsets.only(top: 30),
+                              child: Text(
+                                'Không có vật thể nào được tìm thấy!',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 23,
+                                ),
                               ),
                             ),
-                          ),
                         ],
                       ),
                     ),

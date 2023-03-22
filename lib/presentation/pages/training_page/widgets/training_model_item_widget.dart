@@ -25,7 +25,9 @@ class TrainingModelItem extends StatelessWidget {
     return BlocBuilder<TrainingPageBloc, TrainingPageState>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
+          padding: EdgeInsets.symmetric(
+              horizontal: 40,
+              vertical: state.trainingModelMap.keys.isNotEmpty ? 20 : 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children:

@@ -47,5 +47,6 @@ class ChangeTrainingDataSetEvent extends TrainingPageEvent {
 }
 
 class StartTrainingEvent extends TrainingPageEvent {
-  StartTrainingEvent();
+  final String id;
+  StartTrainingEvent(this.id);
 }

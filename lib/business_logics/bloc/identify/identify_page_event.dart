@@ -4,6 +4,14 @@ class ShowModelEvent extends IdentifyPageEvent {}
 
 class CameraControllerInitFinishEvent extends IdentifyPageEvent {}
 
-class TapGalleryButtonEvent extends IdentifyPageEvent {}
+class TapGalleryButtonEvent extends IdentifyPageEvent {
+  final String? apiPath;
 
-class TapTakePictureButtonEvent extends IdentifyPageEvent {}
+  TapGalleryButtonEvent(this.apiPath);
+}
+
+class TapTakePictureButtonEvent extends IdentifyPageEvent {
+  final String? apiPath;
+
+  TapTakePictureButtonEvent(this.apiPath);
+}

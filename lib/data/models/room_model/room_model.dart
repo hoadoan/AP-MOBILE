@@ -10,6 +10,7 @@ class RoomModel extends Equatable {
   final String labelId;
   final String name;
   final String roomId;
+  final String? trainURL;
   @JsonKey(name: '_id')
   final Map<String, String> id;
 
@@ -20,6 +21,7 @@ class RoomModel extends Equatable {
     required this.name,
     required this.roomId,
     required this.id,
+    required this.trainURL,
   });
 
   @override

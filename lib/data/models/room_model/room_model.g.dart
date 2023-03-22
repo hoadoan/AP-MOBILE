@@ -13,6 +13,7 @@ RoomModel _$RoomModelFromJson(Map<String, dynamic> json) => RoomModel(
       name: json['name'] as String,
       roomId: json['roomId'] as String,
       id: Map<String, String>.from(json['_id'] as Map),
+      trainURL: json['trainURL'] as String?,
     );
 
 Map<String, dynamic> _$RoomModelToJson(RoomModel instance) => <String, dynamic>{
@@ -21,5 +22,6 @@ Map<String, dynamic> _$RoomModelToJson(RoomModel instance) => <String, dynamic>{
       'labelId': instance.labelId,
       'name': instance.name,
       'roomId': instance.roomId,
+      'trainURL': instance.trainURL,
       '_id': instance.id,
     };

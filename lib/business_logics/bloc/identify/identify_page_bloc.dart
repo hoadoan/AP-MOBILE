@@ -34,8 +34,9 @@ class IdentifyPageBLoc extends Bloc<IdentifyPageEvent, IdentifyPageState> {
       CroppedFile? croppedFile = await _cropImage(xFile: xFile);
       if (croppedFile != null) {
         emit(state.copyWith(isLoading: true));
-        DetectResultModel? detectResultModel = await _identifyService
-            .identifyObject(evidencePath: croppedFile.path);
+        DetectResultModel? detectResultModel =
+            await _identifyService.identifyObject(
+                evidencePath: croppedFile.path, apiPath: event.apiPath);
         emit(state.copyWith(isLoading: false));
         Navigator.push(
           context!,
@@ -62,7 +63,8 @@ class IdentifyPageBLoc extends Bloc<IdentifyPageEvent, IdentifyPageState> {
     if (croppedFile != null) {
       emit(state.copyWith(isLoading: true));
       DetectResultModel? detectResultModel =
-          await _identifyService.identifyObject(evidencePath: croppedFile.path);
+          await _identifyService.identifyObject(
+              evidencePath: croppedFile.path, apiPath: event.apiPath);
       emit(state.copyWith(isLoading: false));
       Navigator.push(
         context!,

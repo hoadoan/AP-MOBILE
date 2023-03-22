@@ -10,6 +10,7 @@ import 'package:flutter_application_1/business_logics/bloc/sign_in/sign_in_page_
 import 'package:flutter_application_1/business_logics/bloc/training/training_page_bloc.dart';
 import 'package:flutter_application_1/business_logics/bloc/user_profile/user_profile_page_bloc.dart';
 import 'package:flutter_application_1/business_logics/bloc/user_profile/user_profile_page_state.dart';
+import 'package:flutter_application_1/data/models/room_model/room_model.dart';
 import 'package:flutter_application_1/presentation/pages/custom_photo_view_page/custom_photo_view_page.dart';
 import 'package:flutter_application_1/presentation/pages/home_page/home_page.dart';
 import 'package:flutter_application_1/presentation/pages/identify_page/identify_page.dart';
@@ -49,10 +50,11 @@ class RouteGenerator {
           ),
         );
       case RouteNames.kIdentifyPageRoute:
+        final String? apiPath = routeSettings.arguments as String?;
         return MaterialPageRoute(
           builder: (context) => BlocProvider<IdentifyPageBLoc>(
             create: (context) => IdentifyPageBLoc(),
-            child: const IdentifyPage(),
+            child: IdentifyPage(apiPath: apiPath),
           ),
         );
       case RouteNames.kUserProfilePageRoute:
@@ -86,10 +88,13 @@ class RouteGenerator {
           builder: (context) => const RoomListView(),
         );
       case RouteNames.kTrainingPageRoute:
+        RoomModel roomModel = routeSettings.arguments as RoomModel;
         return MaterialPageRoute(
           builder: (context) => BlocProvider<TrainingPageBloc>(
             create: (context) => TrainingPageBloc(),
-            child: const TrainingPage(),
+            child: TrainingPage(
+              roomModel: roomModel,
+            ),
           ),
         );
       default:

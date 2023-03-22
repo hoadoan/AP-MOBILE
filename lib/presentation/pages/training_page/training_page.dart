@@ -2,10 +2,14 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/business_logics/bloc/training/training_page_bloc.dart';
 import 'package:flutter_application_1/business_logics/bloc/training/training_page_state.dart';
+import 'package:flutter_application_1/data/models/room_model/room_model.dart';
 import 'package:flutter_application_1/presentation/custom_widgets/gradient_widget.dart';
 import 'package:flutter_application_1/presentation/pages/training_page/widgets/training_model_item_widget.dart';
+import 'package:flutter_application_1/presentation/route_management/route_name.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart' as rive;
 
 import '../../../business_logics/bloc/training/training_page_event.dart';
@@ -15,7 +19,9 @@ import '../../utilities/color_constant.dart';
 import 'widgets/ai_model_widget.dart';
 
 class TrainingPage extends StatelessWidget {
-  const TrainingPage({Key? key}) : super(key: key);
+  final RoomModel roomModel;
+
+  const TrainingPage({Key? key, required this.roomModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +105,16 @@ class TrainingPage extends StatelessWidget {
                       children: [
                         const SizedBox(
                           height: 15,
+                        ),
+                        GradientWidget(
+                          child: Text(
+                            roomModel.name,
+                            style: GoogleFonts.righteous(
+                              fontSize: 35.sp,
+                              color: const Color.fromARGB(255, 2, 29, 50),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
                         BlocBuilder<TrainingPageBloc, TrainingPageState>(
                           builder: (context, state) {
@@ -190,70 +206,97 @@ class TrainingPage extends StatelessWidget {
                   height: 0.7,
                   color: ColorConstant.kBlackColor.withOpacity(0.3),
                 ),
-                Stack(
-                  children: [
-                    Center(
-                      child: GradientWidget(
-                        child: InkWell(
-                          onTap: () {
-                            trainingPageBloc.add(StartTrainingEvent());
-                          },
-                          child: Container(
-                            width: deviceWidth * 0.9,
-                            height: 40,
-                            margin: const EdgeInsets.symmetric(vertical: 10),
-                            decoration: BoxDecoration(
-                                color: ColorConstant.kWhiteColor,
-                                borderRadius: BorderRadius.circular(10)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      height: 60,
-                      child: InkWell(
-                        onTap: () {
-                          trainingPageBloc.add(StartTrainingEvent());
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              'Send Training Dataset To Mentor',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                color: ColorConstant.kWhiteColor,
-                                letterSpacing: 1.2,
+                BlocBuilder<TrainingPageBloc, TrainingPageState>(
+                  builder: (context, state) {
+                    return Stack(
+                      children: [
+                        Center(
+                          child: GradientWidget(
+                            gradient: LinearGradient(
+                              colors: [
+                                const Color.fromARGB(255, 82, 3, 210)
+                                    .withOpacity(
+                                        state.trainingModelMap.keys.isNotEmpty
+                                            ? 1
+                                            : 0.2),
+                                const Color.fromARGB(255, 1, 226, 226)
+                                    .withOpacity(
+                                        state.trainingModelMap.keys.isNotEmpty
+                                            ? 1
+                                            : 0.2),
+                              ],
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                trainingPageBloc.add(StartTrainingEvent(
+                                    roomModel.id.entries.first.value));
+                              },
+                              child: Container(
+                                width: deviceWidth * 0.9,
+                                height: 40,
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                decoration: BoxDecoration(
+                                    color: ColorConstant.kWhiteColor,
+                                    borderRadius: BorderRadius.circular(10)),
                               ),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Icon(
-                              PhosphorIcons.traffic_sign,
-                              color: ColorConstant.kWhiteColor,
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
+                        Container(
+                          alignment: Alignment.center,
+                          height: 60,
+                          child: InkWell(
+                            onTap: () {
+                              trainingPageBloc.add(StartTrainingEvent(
+                                  roomModel.id.entries.first.value));
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  'Send Training Dataset To Mentor',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: ColorConstant.kWhiteColor,
+                                    letterSpacing: 1.2,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(
+                                  PhosphorIcons.traffic_sign,
+                                  color: ColorConstant.kWhiteColor,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 Stack(
                   children: [
                     Center(
                       child: GradientWidget(
-                        gradient: const LinearGradient(
+                        gradient: LinearGradient(
                           colors: [
-                            Color.fromARGB(255, 210, 69, 3),
-                            Color.fromARGB(255, 255, 233, 32),
+                            const Color.fromARGB(255, 210, 69, 3).withOpacity(
+                                roomModel.trainURL != null ? 1 : 0.2),
+                            const Color.fromARGB(255, 255, 233, 32).withOpacity(
+                                roomModel.trainURL != null ? 1 : 0.2),
                           ],
                         ),
                         child: InkWell(
                           onTap: () {
-                            trainingPageBloc.add(StartTrainingEvent());
+                            if (roomModel.trainURL != null) {
+                              Navigator.pushNamed(
+                                  context, RouteNames.kIdentifyPageRoute,
+                                  arguments: roomModel.trainURL);
+                            }
                           },
                           child: Container(
                             width: deviceWidth * 0.9,
@@ -271,7 +314,13 @@ class TrainingPage extends StatelessWidget {
                       height: 40,
                       color: Colors.black.withOpacity(0),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          if (roomModel.trainURL != null) {
+                            Navigator.pushNamed(
+                                context, RouteNames.kIdentifyPageRoute,
+                                arguments: roomModel.trainURL);
+                          }
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [

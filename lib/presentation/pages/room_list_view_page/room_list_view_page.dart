@@ -97,7 +97,8 @@ class RoomListView extends StatelessWidget {
                                     child: InkWell(
                                       onTap: () {
                                         Navigator.of(context).pushNamed(
-                                            RouteNames.kTrainingPageRoute);
+                                            RouteNames.kTrainingPageRoute,
+                                            arguments: e);
                                       },
                                       child: DottedBorder(
                                         radius: const Radius.circular(10),
@@ -135,8 +136,7 @@ class RoomListView extends StatelessWidget {
                                                 width: 5,
                                               ),
                                               const Icon(
-                                                PhosphorIcons
-                                                    .caret_double_right,
+                                                PhosphorIcons.paper_plane_right,
                                                 size: 18,
                                                 color:
                                                     ColorConstant.kWhiteColor,

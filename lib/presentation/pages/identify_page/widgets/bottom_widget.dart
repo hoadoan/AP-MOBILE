@@ -8,8 +8,11 @@ import '../../../utilities/assets_path_constant.dart';
 import '../../../utilities/color_constant.dart';
 
 class BottomBarWidget extends StatelessWidget {
+  final String? apiPath;
+
   const BottomBarWidget({
     super.key,
+    this.apiPath,
   });
 
   @override
@@ -32,7 +35,7 @@ class BottomBarWidget extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20),
             child: InkWell(
               onTap: () {
-                identifyPageBLoc.add(TapGalleryButtonEvent());
+                identifyPageBLoc.add(TapGalleryButtonEvent(apiPath));
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +59,7 @@ class BottomBarWidget extends StatelessWidget {
           ),
           InkWell(
             onTap: () async {
-              identifyPageBLoc.add(TapTakePictureButtonEvent());
+              identifyPageBLoc.add(TapTakePictureButtonEvent(apiPath));
             },
             child: Container(
               height: 65,

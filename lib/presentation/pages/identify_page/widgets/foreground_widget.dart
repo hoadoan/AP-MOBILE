@@ -6,8 +6,11 @@ import '../../../utilities/right_angle_line_widget.dart';
 import 'bottom_widget.dart';
 
 class ForegroundWidget extends StatelessWidget {
+  final String? apiPath;
+
   const ForegroundWidget({
     super.key,
+    this.apiPath,
   });
 
   @override
@@ -70,7 +73,9 @@ class ForegroundWidget extends StatelessWidget {
             ),
           ),
         ),
-        const BottomBarWidget(),
+        BottomBarWidget(
+          apiPath: apiPath,
+        ),
       ],
     );
   }
