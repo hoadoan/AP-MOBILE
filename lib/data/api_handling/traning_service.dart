@@ -49,11 +49,11 @@ class TrainingService {
             log(txtFilePath);
             final File file = File(txtFilePath);
             String txtContent =
-                '${key.toLowerCase()} 0 0 ${result.width} ${result.height}';
+                '${labelList.indexOf(key.toLowerCase())} 0 0 ${result.width} ${result.height}';
             log(txtContent);
             file.writeAsString(txtContent).then((value) =>
                 labelMultipartFiles.add(MultipartFile.fromFileSync(value.path,
-                    filename: '$txtFileName.txt')));
+                    filename: txtFileName)));
           },
         );
       }
@@ -63,12 +63,12 @@ class TrainingService {
 
     FormData formData = FormData.fromMap({
       'id': id,
-      'image': imageMultipartFiles.first,
-      'label': labelMultipartFiles.first,
+      'images': imageMultipartFiles,
+      'labels': labelMultipartFiles,
     });
 
     Response response = await Dio().post(
-      'http://${APIPathConstant.API_SERVER_PATH}/api/v1/detect/upload-data',
+      'http://${APIPathConstant.API_SERVER_PATH}/api/v1/detect/upload-multi-data',
       data: formData,
       options: Options(
         headers: <String, String>{
@@ -88,3 +88,86 @@ class TrainingService {
     }
   }
 }
+
+final List<String> labelList = [
+  "person",
+  "bicycle",
+  "car",
+  "motorcycle",
+  "airplane",
+  "bus",
+  "train",
+  "truck",
+  "boat",
+  "traffic light",
+  "fire hydrant",
+  "stop sign",
+  "parking meter",
+  "bench",
+  "bird",
+  "cat",
+  "dog",
+  "horse",
+  "sheep",
+  "cow",
+  "elephant",
+  "bear",
+  "zebra",
+  "giraffe",
+  "backpack",
+  "umbrella",
+  "handbag",
+  "tie",
+  "suitcase",
+  "frisbee",
+  "skis",
+  "snowboard",
+  "sports ball",
+  "kite",
+  "baseball bat",
+  "baseball glove",
+  "skateboard",
+  "surfboard",
+  "tennis racket",
+  "bottle",
+  "wine glass",
+  "cup",
+  "fork",
+  "knife",
+  "spoon",
+  "bowl",
+  "banana",
+  "apple",
+  "sandwich",
+  "orange",
+  "broccoli",
+  "carrot",
+  "hot dog",
+  "pizza",
+  "donut",
+  "cake",
+  "chair",
+  "couch",
+  "potted plant",
+  "bed",
+  "dining table",
+  "toilet",
+  "tv",
+  "laptop",
+  "mouse",
+  "remote",
+  "keyboard",
+  "cell phone",
+  "microwave",
+  "oven",
+  "toaster",
+  "sink",
+  "refrigerator",
+  "book",
+  "clock",
+  "vase",
+  "scissors",
+  "teddy bear",
+  "hair drier",
+  "toothbrush"
+];

@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/presentation/utilities/assets_path_constant.dart';
 import 'package:flutter_application_1/presentation/utilities/color_constant.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../business_logics/bloc/training/training_page_bloc.dart';
 import '../../../../business_logics/bloc/training/training_page_event.dart';
@@ -68,15 +71,15 @@ class TrainingModelItem extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: Image.asset(
-                                modelImagePath,
-                                width: 30,
-                                height: 30,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(5),
+                            //   child: Image.asset(
+                            //     modelImagePath,
+                            //     width: 30,
+                            //     height: 30,
+                            //     fit: BoxFit.cover,
+                            //   ),
+                            // ),
                             const SizedBox(
                               width: 8,
                             ),
@@ -272,12 +275,13 @@ class TrainingModelItem extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 12),
                     child: InkWell(
                       onTap: () {
-                        context.read<TrainingPageBloc>().add(
-                              AddTrainingDataSetEvent(
-                                modelName: state.trainingModelMap.keys
-                                    .elementAt(index),
-                              ),
-                            );
+                        getImageSource(context).then(
+                            (value) => context.read<TrainingPageBloc>().add(
+                                  AddTrainingDataSetEvent(
+                                      modelName: state.trainingModelMap.keys
+                                          .elementAt(index),
+                                      imageSource: value),
+                                ));
                       },
                       child: DottedBorder(
                         radius: const Radius.circular(10),
@@ -330,6 +334,105 @@ class TrainingModelItem extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+Future<ImageSource> getImageSource(BuildContext context) async {
+  late final ImageSource imageSource;
+  await showFlexibleBottomSheet(
+    minHeight: 0,
+    initHeight: 0.17,
+    maxHeight: 1,
+    context: context,
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    bottomSheetColor: Colors.transparent,
+    builder: (context, scrollController, bottomSheetOffset) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+        child: Column(
+          children: [
+            Container(
+              height: 5,
+              width: 50,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            BottomSheetButtonWidget(
+              iconData: CupertinoIcons.photo_on_rectangle,
+              onTap: () {
+                imageSource = ImageSource.gallery;
+                Navigator.of(context).pop();
+              },
+              title: 'Chọn ảnh từ thư viện',
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            BottomSheetButtonWidget(
+              iconData: CupertinoIcons.camera,
+              onTap: () {
+                imageSource = ImageSource.camera;
+                Navigator.of(context).pop();
+              },
+              title: 'Chụp ảnh mới',
+            ),
+          ],
+        ),
+      );
+    },
+    anchors: [0, 0.5, 1],
+    isSafeArea: true,
+  );
+
+  return imageSource;
+}
+
+class BottomSheetButtonWidget extends StatelessWidget {
+  final IconData iconData;
+  final Function() onTap;
+  final String title;
+
+  const BottomSheetButtonWidget(
+      {super.key,
+      required this.iconData,
+      required this.onTap,
+      required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 18,
+            backgroundColor: Colors.black.withOpacity(0.1),
+            child: Icon(
+              iconData,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w500,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

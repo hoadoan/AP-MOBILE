@@ -1,3 +1,5 @@
+import 'package:image_picker/image_picker.dart';
+
 abstract class TrainingPageEvent {}
 
 class TapAddTrainingModelButtonEvent extends TrainingPageEvent {}
@@ -12,11 +14,15 @@ class AddTrainingModelEvent extends TrainingPageEvent {
 
 class AddTrainingDataSetEvent extends TrainingPageEvent {
   final String modelName;
+  final ImageSource imageSource;
 
   AddTrainingDataSetEvent({
     required this.modelName,
+    required this.imageSource,
   });
 }
+
+class RemoveAllEvent extends TrainingPageEvent {}
 
 class RemoveTrainingDataSetEvent extends TrainingPageEvent {
   final String modelName;

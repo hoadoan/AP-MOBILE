@@ -26,7 +26,7 @@ class ForegroundWidget extends StatelessWidget {
                 onTap: () {},
                 child: const Icon(
                   PhosphorIcons.flashlight_fill,
-                  color: ColorConstant.kWhiteColor,
+                  color: ColorConstant.kTransparentColor,
                 ),
               ),
               InkWell(

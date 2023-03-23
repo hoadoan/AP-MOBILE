@@ -83,7 +83,7 @@ class TrainingPage extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Icon(
                         PhosphorIcons.trash,
-                        color: ColorConstant.kRedColor,
+                        color: ColorConstant.kTransparentColor,
                       ),
                     ),
                   ],
@@ -216,14 +216,10 @@ class TrainingPage extends StatelessWidget {
                               colors: [
                                 const Color.fromARGB(255, 82, 3, 210)
                                     .withOpacity(
-                                        state.trainingModelMap.keys.isNotEmpty
-                                            ? 1
-                                            : 0.2),
+                                        state.totalDataset > 0 ? 1 : 0.2),
                                 const Color.fromARGB(255, 1, 226, 226)
                                     .withOpacity(
-                                        state.trainingModelMap.keys.isNotEmpty
-                                            ? 1
-                                            : 0.2),
+                                        state.totalDataset > 0 ? 1 : 0.2),
                               ],
                             ),
                             child: InkWell(
@@ -248,8 +244,10 @@ class TrainingPage extends StatelessWidget {
                           height: 60,
                           child: InkWell(
                             onTap: () {
-                              trainingPageBloc.add(StartTrainingEvent(
-                                  roomModel.id.entries.first.value));
+                              if (state.totalDataset > 0) {
+                                trainingPageBloc.add(StartTrainingEvent(
+                                    roomModel.id.entries.first.value));
+                              }
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

@@ -209,15 +209,15 @@ class IdentifyResultPage extends StatelessWidget {
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
-                                                  Image.asset(
-                                                    IMAGE_PATH + DOG_PNG,
-                                                    width: 25,
-                                                    height: 25,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
+                                                  // Image.asset(
+                                                  //   IMAGE_PATH + DOG_PNG,
+                                                  //   width: 25,
+                                                  //   height: 25,
+                                                  //   fit: BoxFit.cover,
+                                                  // ),
+                                                  // const SizedBox(
+                                                  //   width: 10,
+                                                  // ),
                                                   Text(
                                                     '${e.label}: ${(double.tryParse(e.confidence)! * 100).round()}%',
                                                     style: const TextStyle(

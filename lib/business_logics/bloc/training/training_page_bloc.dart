@@ -22,6 +22,7 @@ class TrainingPageBloc extends Bloc<TrainingPageEvent, TrainingPageState> {
     on<ChangeTrainingDataSetEvent>(_onChangeTrainingDataSetEvent);
     on<StartTrainingEvent>(_onStartTrainingEvent);
     on<RemoveTrainingModelEvent>(_onRemoveTrainingModelEvent);
+    on<RemoveAllEvent>(_onRemoveAllEvent);
   }
 
   _onTapAddTrainingModelButtonEvent(
@@ -33,7 +34,15 @@ class TrainingPageBloc extends Bloc<TrainingPageEvent, TrainingPageState> {
   _onAddTrainingDataSetEvent(
       AddTrainingDataSetEvent event, Emitter<TrainingPageState> emit) async {
     int totalDataset = state.totalDataset;
-    List<XFile> imagesFile = await ImagePicker().pickMultiImage();
+    List<XFile> imagesFile = [];
+    if (event.imageSource == ImageSource.gallery) {
+      imagesFile = await ImagePicker().pickMultiImage();
+    } else {
+      XFile? xFile = await ImagePicker().pickImage(source: event.imageSource);
+      if (xFile != null) {
+        imagesFile.add(xFile);
+      }
+    }
 
     if (imagesFile.isNotEmpty) {
       List<String> imagePaths = state.trainingModelMap[event.modelName]!;
@@ -96,6 +105,16 @@ class TrainingPageBloc extends Bloc<TrainingPageEvent, TrainingPageState> {
     );
   }
 
+  _onRemoveAllEvent(
+      RemoveAllEvent event, Emitter<TrainingPageState> emit) async {
+    emit(
+      state.copyWith(
+        trainingModelMap: {},
+        totalDataset: 0,
+      ),
+    );
+  }
+
   _onAddTrainingModelEvent(
       AddTrainingModelEvent event, Emitter<TrainingPageState> emit) {
     final Map<String, List<String>> trainingModelMap =
@@ -139,7 +158,8 @@ class TrainingPageBloc extends Bloc<TrainingPageEvent, TrainingPageState> {
     emit(state.copyWith(isWaitingTraining: true));
     await _trainingService.training(
         trainingModelMap: state.trainingModelMap, id: event.id);
-    emit(state.copyWith(isWaitingTraining: false));
+    emit(state.copyWith(
+        isWaitingTraining: false, totalDataset: 0, trainingModelMap: {}));
 
     Fluttertoast.showToast(
         msg: 'Training for A.I label successfully!',

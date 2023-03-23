@@ -4,7 +4,6 @@ import 'package:flutter_application_1/business_logics/bloc/training/training_pag
 import 'package:flutter_application_1/business_logics/bloc/training/training_page_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../utilities/assets_path_constant.dart';
 import '../../../utilities/color_constant.dart';
 
 class AIModelWidget extends StatelessWidget {
@@ -16,14 +15,6 @@ class AIModelWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     TrainingPageBloc trainingPageBloc =
         BlocProvider.of<TrainingPageBloc>(context);
-    List<String> labelList = [
-      'Dog',
-      'Cat',
-      'Fish',
-      'Bird',
-      'Pig',
-      'Monkey',
-    ];
 
     return Align(
       alignment: Alignment.centerRight,
@@ -67,21 +58,21 @@ class AIModelWidget extends StatelessWidget {
                           builder: (context, state) {
                             return Column(
                               children: [
-                                ...List.generate(labelList.length, (index) {
-                                  String modelImagePath = IMAGE_PATH;
+                                ...List.generate(usingList.length, (index) {
+                                  // String modelImagePath = IMAGE_PATH;
 
-                                  switch (labelList[index]) {
-                                    case 'Dog':
-                                      modelImagePath += DOG_PNG;
-                                      break;
-                                    case 'Cat':
-                                      modelImagePath += CAT_ICON_PNG;
-                                      break;
-                                    default:
-                                      modelImagePath += NO_AVATAR_PNG;
-                                  }
+                                  // switch (labelList[index]) {
+                                  //   case 'Dog':
+                                  //     modelImagePath += DOG_PNG;
+                                  //     break;
+                                  //   case 'Cat':
+                                  //     modelImagePath += CAT_ICON_PNG;
+                                  //     break;
+                                  //   default:
+                                  //     modelImagePath += NO_AVATAR_PNG;
+                                  // }
                                   return state.trainingModelMap.keys
-                                          .contains(labelList[index])
+                                          .contains(usingList[index])
                                       ? InkWell(
                                           onTap: () {},
                                           child: Container(
@@ -123,22 +114,26 @@ class AIModelWidget extends StatelessWidget {
                                                 ),
                                                 child: Row(
                                                   children: [
-                                                    CircleAvatar(
-                                                      backgroundImage:
-                                                          AssetImage(
-                                                        modelImagePath,
-                                                      ),
-                                                    ),
+                                                    // CircleAvatar(
+                                                    //   backgroundImage:
+                                                    //       AssetImage(
+                                                    //     modelImagePath,
+                                                    //   ),
+                                                    // ),
                                                     const SizedBox(
                                                       width: 10,
                                                     ),
                                                     Text(
-                                                      labelList[index],
+                                                      usingList[index],
                                                       style: const TextStyle(
                                                         color: ColorConstant
                                                             .kOrangeColor,
                                                         fontSize: 20,
                                                       ),
+                                                    ),
+                                                    const CircleAvatar(
+                                                      backgroundColor:
+                                                          Colors.transparent,
                                                     ),
                                                   ],
                                                 ),
@@ -150,7 +145,7 @@ class AIModelWidget extends StatelessWidget {
                                           onTap: () {
                                             trainingPageBloc.add(
                                               AddTrainingModelEvent(
-                                                modelName: labelList[index],
+                                                modelName: usingList[index],
                                               ),
                                             );
                                           },
@@ -171,21 +166,25 @@ class AIModelWidget extends StatelessWidget {
                                             ),
                                             child: Row(
                                               children: [
-                                                CircleAvatar(
-                                                  backgroundImage: AssetImage(
-                                                    modelImagePath,
-                                                  ),
-                                                ),
+                                                // CircleAvatar(
+                                                //   backgroundImage: AssetImage(
+                                                //     modelImagePath,
+                                                //   ),
+                                                // ),
                                                 const SizedBox(
                                                   width: 10,
                                                 ),
                                                 Text(
-                                                  labelList[index],
+                                                  usingList[index],
                                                   style: const TextStyle(
                                                     color: ColorConstant
                                                         .kOrangeColor,
                                                     fontSize: 20,
                                                   ),
+                                                ),
+                                                const CircleAvatar(
+                                                  backgroundColor:
+                                                      Colors.transparent,
                                                 ),
                                               ],
                                             ),
@@ -212,3 +211,12 @@ class AIModelWidget extends StatelessWidget {
     );
   }
 }
+
+final usingList = [
+  "bird",
+  "cat",
+  "dog",
+  "car",
+  "train",
+  "airplane",
+];
