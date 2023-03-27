@@ -15,7 +15,9 @@ class IdentifyService {
   }
 
   Future<DetectResultModel?> identifyObject(
-      {required String evidencePath, String? apiPath}) async {
+      {required String evidencePath,
+      String? apiPath,
+      required String jwt}) async {
     FormData formData = FormData.fromMap({
       'file': await MultipartFile.fromFile(evidencePath),
     });
@@ -28,7 +30,7 @@ class IdentifyService {
       options: Options(
         headers: <String, String>{
           HttpHeaders.contentTypeHeader: 'multipart/form-data',
-          // HttpHeaders.authorizationHeader: 'Bearer ' + jwt,
+          HttpHeaders.authorizationHeader: 'Bearer $jwt',
         },
         responseType: ResponseType.json,
       ),

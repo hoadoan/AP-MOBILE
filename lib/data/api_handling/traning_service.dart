@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
@@ -17,10 +16,10 @@ class TrainingService {
     return _instance;
   }
 
-  Future<bool> training({
-    required Map<String, List<String>> trainingModelMap,
-    required String id,
-  }) async {
+  Future<bool> training(
+      {required Map<String, List<String>> trainingModelMap,
+      required String id,
+      required String jwt}) async {
     List<MultipartFile> imageMultipartFiles = [];
     List<MultipartFile> labelMultipartFiles = [];
 
@@ -37,29 +36,20 @@ class TrainingService {
         imageMultipartFiles
             .add(MultipartFile.fromFileSync(path, filename: imageFileName));
 
-        File image = File(path);
-        decodeImageFromList(
-          image.readAsBytesSync(),
-          (result) async {
-            final Directory directory =
-                await getApplicationDocumentsDirectory();
-            String txtFileName = '$fileName.txt';
-            String txtFilePath = '${directory.path}/$txtFileName';
-            log(txtFileName);
-            log(txtFilePath);
-            final File file = File(txtFilePath);
-            String txtContent =
-                '${labelList.indexOf(key.toLowerCase())} 0 0 ${result.width} ${result.height}';
-            log(txtContent);
-            file.writeAsString(txtContent).then((value) =>
-                labelMultipartFiles.add(MultipartFile.fromFileSync(value.path,
-                    filename: txtFileName)));
-          },
-        );
+        final Directory directory = await getApplicationDocumentsDirectory();
+        String txtFileName = '$fileName.txt';
+        String txtFilePath = '${directory.path}/$txtFileName';
+        log(txtFileName);
+        log(txtFilePath);
+        final File file = File(txtFilePath);
+        String txtContent =
+            '${labelList.indexOf(key.toLowerCase())} 0.5 0.5 1.0 1.0';
+        log(txtContent);
+        await file.writeAsString(txtContent).then((value) =>
+            labelMultipartFiles.add(
+                MultipartFile.fromFileSync(value.path, filename: txtFileName)));
       }
     }
-
-    await Future.delayed(const Duration(seconds: 1));
 
     FormData formData = FormData.fromMap({
       'id': id,
@@ -73,7 +63,7 @@ class TrainingService {
       options: Options(
         headers: <String, String>{
           HttpHeaders.contentTypeHeader: 'multipart/form-data',
-          // HttpHeaders.authorizationHeader: 'Bearer ' + jwt,
+          HttpHeaders.authorizationHeader: 'Bearer $jwt',
         },
       ),
     );

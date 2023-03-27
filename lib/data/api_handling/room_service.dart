@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_application_1/data/api_handling/api_path_constant.dart';
 import 'package:flutter_application_1/data/models/room_model/room_model.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -15,11 +17,15 @@ class RoomService {
   }
 
   Future<List<RoomModel>> fetchListRoom() async {
+    FlutterSecureStorage storage = const FlutterSecureStorage();
+    final String jwt = await storage.read(key: 'jwt') ?? '';
+
     final http.Response response = await http.get(
       Uri.http(
           APIPathConstant.API_SERVER_PATH, '/api/v1/room/list-room-mobile'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        HttpHeaders.authorizationHeader: 'Bearer $jwt',
       },
     );
     switch (response.statusCode) {

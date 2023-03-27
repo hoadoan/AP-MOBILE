@@ -7,6 +7,7 @@ import 'package:flutter_application_1/data/models/detect_result_model/detect_res
 import 'package:flutter_application_1/presentation/pages/identify_result_page/identify_result_page.dart';
 import 'package:flutter_application_1/presentation/utilities/color_constant.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -14,8 +15,11 @@ class IdentifyPageBLoc extends Bloc<IdentifyPageEvent, IdentifyPageState> {
   late final CameraController cameraController;
   final IdentifyService _identifyService = IdentifyService();
   BuildContext? context;
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
+  late final String _jwt;
 
   IdentifyPageBLoc() : super(const IdentifyPageState()) {
+    _storage.read(key: 'jwt').then((value) => _jwt = value ?? '');
     _cameraControllerInit();
     on<ShowModelEvent>(_onShowModelEvent);
     on<CameraControllerInitFinishEvent>(_onCameraControllerInitFinishEvent);
@@ -36,7 +40,9 @@ class IdentifyPageBLoc extends Bloc<IdentifyPageEvent, IdentifyPageState> {
         emit(state.copyWith(isLoading: true));
         DetectResultModel? detectResultModel =
             await _identifyService.identifyObject(
-                evidencePath: croppedFile.path, apiPath: event.apiPath);
+                evidencePath: croppedFile.path,
+                apiPath: event.apiPath,
+                jwt: _jwt);
         emit(state.copyWith(isLoading: false));
         Navigator.push(
           context!,
@@ -64,7 +70,9 @@ class IdentifyPageBLoc extends Bloc<IdentifyPageEvent, IdentifyPageState> {
       emit(state.copyWith(isLoading: true));
       DetectResultModel? detectResultModel =
           await _identifyService.identifyObject(
-              evidencePath: croppedFile.path, apiPath: event.apiPath);
+              evidencePath: croppedFile.path,
+              apiPath: event.apiPath,
+              jwt: _jwt);
       emit(state.copyWith(isLoading: false));
       Navigator.push(
         context!,

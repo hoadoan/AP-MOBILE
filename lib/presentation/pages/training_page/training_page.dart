@@ -127,9 +127,7 @@ class TrainingPage extends StatelessWidget {
                                   children: [
                                     Image.asset(IMAGE_PATH + AI_LOGO_PNG),
                                     Text(
-                                      true
-                                          ? 'A.I label have been training by 99 dataset\nAdd your dataset to help A.I better...'
-                                          : 'Identify A.I label is new\nAdd your dataset for training...',
+                                      'Welcome to ${roomModel.name} training room.\nAdd your dataset to training A.I label...',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: ColorConstant.kBlackColor

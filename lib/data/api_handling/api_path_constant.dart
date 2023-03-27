@@ -10,6 +10,7 @@ class APIPathConstant {
     return _instance;
   }
 
-  static const API_SERVER_PATH = '146.190.90.118:5000';
+  static const API_SERVER_PATH = 'binhtruongthanh.tech';
+  // static const API_SERVER_PATH = '146.190.90.118:5000';
   // static const API_SERVER_PATH = '10.0.2.2:5000';
 }

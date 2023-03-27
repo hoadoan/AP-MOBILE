@@ -3,6 +3,7 @@ import 'package:flutter_application_1/business_logics/bloc/training/training_pag
 import 'package:flutter_application_1/business_logics/bloc/training/training_page_state.dart';
 import 'package:flutter_application_1/data/api_handling/traning_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,10 +12,14 @@ import '../../../presentation/utilities/color_constant.dart';
 
 class TrainingPageBloc extends Bloc<TrainingPageEvent, TrainingPageState> {
   final TrainingService _trainingService = TrainingService();
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
+  late final String _jwt;
 
   TrainingPageBloc()
       : super(const TrainingPageState(
             trainingModelMap: <String, List<String>>{})) {
+    _storage.read(key: 'jwt').then((value) => _jwt = value ?? '');
+
     on<TapAddTrainingModelButtonEvent>(_onTapAddTrainingModelButtonEvent);
     on<AddTrainingModelEvent>(_onAddTrainingModelEvent);
     on<AddTrainingDataSetEvent>(_onAddTrainingDataSetEvent);
@@ -157,7 +162,7 @@ class TrainingPageBloc extends Bloc<TrainingPageEvent, TrainingPageState> {
       StartTrainingEvent event, Emitter<TrainingPageState> emit) async {
     emit(state.copyWith(isWaitingTraining: true));
     await _trainingService.training(
-        trainingModelMap: state.trainingModelMap, id: event.id);
+        trainingModelMap: state.trainingModelMap, id: event.id, jwt: _jwt);
     emit(state.copyWith(
         isWaitingTraining: false, totalDataset: 0, trainingModelMap: {}));
 
